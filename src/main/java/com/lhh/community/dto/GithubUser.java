@@ -1,4 +1,4 @@
-package com.lhh.community.community.dto;
+package com.lhh.community.dto;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class GihubUser {
+public class GithubUser {
     private String login;
     private Long id;
     private String bio;

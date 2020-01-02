@@ -1,8 +1,8 @@
-package com.lhh.community.community.provider;
+package com.lhh.community.provider;
 
 import com.alibaba.fastjson.JSON;
-import com.lhh.community.community.dto.AccessTokenDTO;
-import com.lhh.community.community.dto.GihubUser;
+import com.lhh.community.dto.AccessTokenDTO;
+import com.lhh.community.dto.GithubUser;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +38,7 @@ public class GithubProvider {
         return null;
     }
 
-    public GihubUser getUser(String accessToken)
+    public GithubUser getUser(String accessToken)
     {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -48,8 +48,8 @@ public class GithubProvider {
             Response response = client.newCall(request).execute();
             String str = response.body().string();
             System.out.println(str);
-            GihubUser gihubUser = JSON.parseObject(str,GihubUser.class);
-            return gihubUser;
+            GithubUser githubUser = JSON.parseObject(str, GithubUser.class);
+            return githubUser;
         } catch (IOException e) {
         }
         return null;
