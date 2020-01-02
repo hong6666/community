@@ -54,4 +54,8 @@ public interface UserMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(User record);
+
+
+
+    User findByToken(String token);
 }

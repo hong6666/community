@@ -25,4 +25,6 @@ public interface UserService {
     User selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKey(User record);
+
+    User findByToken(String token);
 }

@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
                 return -1;
             }
         } catch (Exception e) {
-            logger.info("异常");
+            logger.info("插入异常");
             return -1;
         }
 
@@ -81,5 +81,10 @@ public class UserServiceImpl implements UserService {
         {
             return -1;
         }
+    }
+
+    @Override
+    public User findByToken(String token) {
+        return userMapper.findByToken(token);
     }
 }
