@@ -1,5 +1,6 @@
 package com.lhh.community.services.servicesImpl;
 
+import com.lhh.community.dao.QuestionMapper;
 import com.lhh.community.dao.UserMapper;
 import com.lhh.community.dto.User;
 import com.lhh.community.services.UserService;
@@ -19,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+
 
     private Logger logger = LogUtil.logger(this.getClass());
 
