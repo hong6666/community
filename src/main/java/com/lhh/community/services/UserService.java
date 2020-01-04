@@ -1,11 +1,6 @@
 package com.lhh.community.services;
 
-import com.lhh.community.dao.UserMapper;
-import com.lhh.community.dto.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.lhh.community.entity.User;
 
 /**
  * @program: community

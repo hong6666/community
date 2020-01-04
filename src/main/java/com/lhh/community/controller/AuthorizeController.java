@@ -1,21 +1,17 @@
 package com.lhh.community.controller;
 
-import com.lhh.community.dao.UserMapper;
 import com.lhh.community.dto.AccessTokenDTO;
 import com.lhh.community.dto.GithubUser;
-import com.lhh.community.dto.User;
+import com.lhh.community.entity.User;
 import com.lhh.community.provider.GithubProvider;
 import com.lhh.community.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
@@ -66,6 +62,7 @@ public class AuthorizeController {
             user.setAccountid(String.valueOf(githubUser.getId()));
             user.setGmtcreate(System.currentTimeMillis());
             user.setGmtmodified(user.getGmtcreate());
+            user.setAvatarUrl(githubUser.getAvatar_url());
             userService.insert(user);
 
             /*//登录成功，写cookid和session

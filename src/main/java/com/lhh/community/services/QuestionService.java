@@ -1,6 +1,9 @@
 package com.lhh.community.services;
 
-import com.lhh.community.dto.Question;
+import com.lhh.community.dto.QuestionDTO;
+import com.lhh.community.entity.Question;
+
+import java.util.List;
 
 /**
  * @program: community
@@ -11,6 +14,10 @@ import com.lhh.community.dto.Question;
 public interface QuestionService {
 
     int insert(Question record);
+
+    List<Question> list();
+
+    public List<QuestionDTO> questionDTOList();
 
     /*Question selectByPrimaryKey(Integer id);
 

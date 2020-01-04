@@ -24,7 +24,7 @@
             <!--<property name="addRemarkComments" value="true"/>-->
             <!-- 注释里不添加日期 -->
             <property name="suppressDate" value="true"/>
-            <property name="suppressAllComments" value="false"/>
+            <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!-- 数据库连接，直接通过${}读取application.properties里的配置 -->
         <jdbcConnection
@@ -54,18 +54,18 @@
         </javaClientGenerator>
 
         <!-- table标签可以有多个，至少一个，tableName指定数据库表名，domainObjectName指定对象名 -->
-        <!--<table schema="community" tableName="user" domainObjectName="User"-->
-               <!--enableCountByExample="false"-->
-               <!--enableUpdateByExample="false"-->
-               <!--enableDeleteByExample="false"-->
-               <!--enableSelectByExample="false"-->
-               <!--selectByExampleQueryId="false"-->
-               <!--enableUpdateByPrimaryKey="true"-->
-               <!--enableSelectByPrimaryKey="true"-->
-                <!--enableDeleteByPrimaryKey="true">-->
-        <!--</table>-->
+        <table schema="community" tableName="user" domainObjectName="User"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"
+               enableUpdateByPrimaryKey="true"
+               enableSelectByPrimaryKey="true"
+                enableDeleteByPrimaryKey="true">
+        </table>
 
-        <table schema="community" tableName="question" domainObjectName="Question"
+        <!--<table schema="community" tableName="question" domainObjectName="Question"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -74,7 +74,7 @@
                enableUpdateByPrimaryKey="true"
                enableSelectByPrimaryKey="true"
                enableDeleteByPrimaryKey="true">
-        </table>
+        </table>-->
 
     </context>
 

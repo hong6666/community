@@ -1,8 +1,7 @@
 package com.lhh.community.services.servicesImpl;
 
-import com.lhh.community.dao.QuestionMapper;
 import com.lhh.community.dao.UserMapper;
-import com.lhh.community.dto.User;
+import com.lhh.community.entity.User;
 import com.lhh.community.services.UserService;
 import com.lhh.community.utils.LogUtil;
 import org.slf4j.Logger;
