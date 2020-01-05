@@ -56,6 +56,15 @@
     select * from question
   </select>
 
+  <select id="selectPage" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select * from question limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+
+  <select id="count" resultType="java.lang.Integer">
+    select count(1) from question
+  </select>
+
+
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--

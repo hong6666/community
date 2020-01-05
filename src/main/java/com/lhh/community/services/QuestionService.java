@@ -1,5 +1,6 @@
 package com.lhh.community.services;
 
+import com.lhh.community.dto.PaginationDTO;
 import com.lhh.community.dto.QuestionDTO;
 import com.lhh.community.entity.Question;
 
@@ -17,7 +18,11 @@ public interface QuestionService {
 
     List<Question> list();
 
-    public List<QuestionDTO> questionDTOList();
+    List<QuestionDTO> questionDTOList();
+
+    PaginationDTO questionPage(Integer page, Integer size);
+
+    int count();
 
     /*Question selectByPrimaryKey(Integer id);
 

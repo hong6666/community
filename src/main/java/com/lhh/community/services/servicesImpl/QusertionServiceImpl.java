@@ -2,6 +2,7 @@ package com.lhh.community.services.servicesImpl;
 
 import com.lhh.community.dao.QuestionMapper;
 import com.lhh.community.dao.UserMapper;
+import com.lhh.community.dto.PaginationDTO;
 import com.lhh.community.dto.QuestionDTO;
 import com.lhh.community.entity.Question;
 import com.lhh.community.entity.User;
@@ -62,16 +63,46 @@ public class QusertionServiceImpl implements QuestionService {
     {
         List<Question> questions = questionMapper.selectAll();
         List<QuestionDTO> questionDTOs = new ArrayList<>();
-        for(Question question : questions)
+        /*for(Question question : questions)
         {
             User user = userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
             questionDTO.setUser(user);
             questionDTOs.add(questionDTO);
-        }
+        }*/
         return questionDTOs;
     }
 
+    @Override
+    public PaginationDTO questionPage(Integer page, Integer size) {
+        PaginationDTO paginationDTO = new PaginationDTO();
+        Integer totalCount = questionMapper.count();
+        paginationDTO.setPagination(totalCount,page,size);
+
+        if(page < 1) page = 1;
+        if(page > paginationDTO.getTotalPage())page = paginationDTO.getTotalPage();
+
+        Integer offset = size * (page -1);
+
+        List<Question> questions = questionMapper.selectPage(offset,size);
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        for(Question question : questions)
+        {
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(question,questionDTO);
+            questionDTO.setUser(user);
+            questionDTOList.add(questionDTO);
+        }
+
+        paginationDTO.setQuestions(questionDTOList);
+        return paginationDTO;
+    }
+
+    @Override
+    public int count() {
+        return questionMapper.count();
+    }
 
 }
