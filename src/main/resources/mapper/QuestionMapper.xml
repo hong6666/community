@@ -60,8 +60,17 @@
     select * from question limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
   </select>
 
+  <select id="selectPageByUserId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select * from question where creator = #{userId,jdbcType=INTEGER} limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+
+
   <select id="count" resultType="java.lang.Integer">
     select count(1) from question
+  </select>
+
+  <select id="countByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select count(1) from question where creator = #{userId,jdbcType=INTEGER}
   </select>
 
 

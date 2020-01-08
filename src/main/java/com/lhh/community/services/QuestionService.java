@@ -22,7 +22,11 @@ public interface QuestionService {
 
     PaginationDTO questionPage(Integer page, Integer size);
 
+    PaginationDTO questionPage(Integer userId,Integer page,Integer size);
+
     int count();
+
+    int countByUserId(Integer userId);
 
     /*Question selectByPrimaryKey(Integer id);
 

@@ -14,7 +14,7 @@
                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                     <span class="sr-only">我的社区</span>
                 </button>
-                <a class="navbar-brand" href="#">我的社区</a>
+                <a class="navbar-brand" href="/">我的社区</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <form class="navbar-form navbar-left">
@@ -25,20 +25,24 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li th:if="${session.user != null}">
-                        <a href="/publish">发布</a>
+                        <a href="/publish">提问</a>
                     </li>
-                    <li th:if="${session.user == null}">
-                        <a href="https://github.com/login/oauth/authorize?client_id=7f04a79c485da349b6ad&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a>
-                    </li>
+
                     <li class="dropdown" th:if="${session.user != null}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">消息中心</a></li>
+                            <li><a href="/profile/questions">我的问题</a></li>
                             <li><a href="#">个人资料</a></li>
                             <li><a href="#">退出登录</a></li>
                         </ul>
                     </li>
+
+                    <li th:if="${session.user == null}">
+                        <a href="https://github.com/login/oauth/authorize?client_id=7f04a79c485da349b6ad&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a>
+                    </li>
+
+
                 </ul>
             </div>
         </div>
