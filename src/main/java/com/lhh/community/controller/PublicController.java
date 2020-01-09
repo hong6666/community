@@ -26,10 +26,6 @@ public class PublicController {
     @Autowired
     private QuestionService questionService;
 
-    @Autowired
-    private UserService userService;
-
-
     @GetMapping("/publish")
     public String publicsh()
     {
@@ -60,24 +56,8 @@ public class PublicController {
             model.addAttribute("error", "标签不能为空");
             return "publish";
         }
-        User user = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length != 0)
-        {
-            for(Cookie cookie : cookies)
-            {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    user = userService.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
 
-
+        User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             model.addAttribute("error", "用户未登录");
             return "publish";
