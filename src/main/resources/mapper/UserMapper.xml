@@ -27,6 +27,13 @@
     where token = #{token,jdbcType=VARCHAR}
   </select>
 
+  <select id="findByAccountId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where accountId = #{accountId,jdbcType=VARCHAR}
+  </select>
+
 
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

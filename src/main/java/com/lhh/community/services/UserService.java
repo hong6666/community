@@ -22,4 +22,8 @@ public interface UserService {
     int updateByPrimaryKey(User record);
 
     User findByToken(String token);
+
+    User findByAccountId(String accountId);
+
+    void createOrUpdate(User user);
 }

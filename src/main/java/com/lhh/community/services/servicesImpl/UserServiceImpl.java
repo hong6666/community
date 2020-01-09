@@ -20,8 +20,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-
-
     private Logger logger = LogUtil.logger(this.getClass());
 
     @Override
@@ -89,4 +87,32 @@ public class UserServiceImpl implements UserService {
     public User findByToken(String token) {
         return userMapper.findByToken(token);
     }
+
+    @Override
+    public User findByAccountId(String accountId) {
+        return userMapper.findByAccountId(accountId);
+    }
+
+    @Override
+    public void createOrUpdate(User user) {
+        User dbuser = userMapper.findByAccountId(user.getAccountid());
+        if (dbuser == null)
+        {
+            //插入
+            user.setGmtcreate(System.currentTimeMillis());
+            user.setGmtmodified(user.getGmtcreate());
+            userMapper.insert(user);
+            logger.info("新用户账号插入成功");
+        }else
+        {
+            //更新
+            dbuser.setGmtmodified(System.currentTimeMillis());
+            dbuser.setAvatarUrl(user.getAvatarUrl());
+            dbuser.setName(user.getName());
+            dbuser.setToken(user.getToken());
+            userMapper.updateByPrimaryKey(dbuser);
+            logger.info("用户账号更新成功,token="+dbuser.getToken());
+        }
+    }
+
 }

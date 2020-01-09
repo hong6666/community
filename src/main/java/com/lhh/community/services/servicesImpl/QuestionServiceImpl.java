@@ -23,7 +23,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class QusertionServiceImpl implements QuestionService {
+public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
