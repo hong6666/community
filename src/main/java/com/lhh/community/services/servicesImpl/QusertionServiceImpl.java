@@ -148,4 +148,14 @@ public class QusertionServiceImpl implements QuestionService {
         return questionMapper.countByUserId(userId);
     }
 
+    @Override
+    public QuestionDTO selectByPrimaryKey(Integer id) {
+        Question question = questionMapper.selectByPrimaryKey(id);
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question,questionDTO);
+        User user = userMapper.selectByPrimaryKey(question.getCreator());
+        questionDTO.setUser(user);
+        return questionDTO;
+    }
+
 }

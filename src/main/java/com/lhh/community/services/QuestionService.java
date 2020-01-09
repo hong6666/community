@@ -28,9 +28,9 @@ public interface QuestionService {
 
     int countByUserId(Integer userId);
 
-    /*Question selectByPrimaryKey(Integer id);
+    QuestionDTO selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Question record);
+    /*int updateByPrimaryKeySelective(Question record);
 
     int updateByPrimaryKey(Question record);*/
 
