@@ -1,5 +1,6 @@
 package com.lhh.community.controller;
 
+import com.lhh.community.dto.QuestionDTO;
 import com.lhh.community.entity.Question;
 import com.lhh.community.entity.User;
 import com.lhh.community.services.QuestionService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,6 +28,17 @@ public class PublicController {
     @Autowired
     private QuestionService questionService;
 
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable("id") Integer id,Model model)
+    {
+        QuestionDTO question = questionService.selectByPrimaryKey(id);
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDescription());
+        model.addAttribute("tag",question.getTag());
+        model.addAttribute("id",question.getId());
+        return "publish";
+    }
+
     @GetMapping("/publish")
     public String publicsh()
     {
@@ -36,6 +49,7 @@ public class PublicController {
     public String doPublish(@RequestParam("title")String title,
                             @RequestParam("description")String description,
                             @RequestParam("tag")String tag,
+                            @RequestParam("id")Integer id,
                             HttpServletRequest request,
                             Model model)
     {
@@ -68,9 +82,8 @@ public class PublicController {
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
-        question.setGmtCreate(System.currentTimeMillis());
-        question.setGmtModified(question.getGmtCreate());
-        questionService.insert(question);
+        question.setId(id);
+        questionService.createOrUpdate(question);
         return "redirect:/";
 
 

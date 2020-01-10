@@ -110,6 +110,7 @@ public class UserServiceImpl implements UserService {
             dbuser.setAvatarUrl(user.getAvatarUrl());
             dbuser.setName(user.getName());
             dbuser.setToken(user.getToken());
+            logger.info("db user id = "+user.getId());
             userMapper.updateByPrimaryKey(dbuser);
             logger.info("用户账号更新成功,token="+dbuser.getToken());
         }

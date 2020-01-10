@@ -30,6 +30,8 @@ public interface QuestionService {
 
     QuestionDTO selectByPrimaryKey(Integer id);
 
+    void createOrUpdate(Question question);
+
     /*int updateByPrimaryKeySelective(Question record);
 
     int updateByPrimaryKey(Question record);*/

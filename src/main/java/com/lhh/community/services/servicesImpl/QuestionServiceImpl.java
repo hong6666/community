@@ -158,4 +158,22 @@ public class QuestionServiceImpl implements QuestionService {
         return questionDTO;
     }
 
+    @Override
+    public void createOrUpdate(Question question) {
+        if (question.getId() == null)
+        {
+            //创建插入
+            question.setGmtCreate(System.currentTimeMillis());
+            question.setGmtModified(question.getGmtCreate());
+            questionMapper.insert(question);
+            logger.info("问题插入成功");
+        }else
+        {
+            //更新
+            question.setGmtModified(System.currentTimeMillis());
+            questionMapper.updateByPrimaryKey(question);
+            logger.info("问题id="+question.getId()+"更新了");
+        }
+    }
+
 }
