@@ -6,12 +6,15 @@ import com.lhh.community.dto.PaginationDTO;
 import com.lhh.community.dto.QuestionDTO;
 import com.lhh.community.entity.Question;
 import com.lhh.community.entity.User;
+import com.lhh.community.exception.CustomizeErrorCode;
+import com.lhh.community.exception.CustomizeException;
 import com.lhh.community.services.QuestionService;
 import com.lhh.community.utils.LogUtil;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,6 +154,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public QuestionDTO selectByPrimaryKey(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if(question == null)throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -171,7 +175,8 @@ public class QuestionServiceImpl implements QuestionService {
         {
             //更新
             question.setGmtModified(System.currentTimeMillis());
-            questionMapper.updateByPrimaryKey(question);
+            int updateResult = questionMapper.updateByPrimaryKey(question);
+            if(updateResult != 1)throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             logger.info("问题id="+question.getId()+"更新了");
         }
     }
