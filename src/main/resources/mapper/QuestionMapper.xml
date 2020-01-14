@@ -238,4 +238,11 @@
       tag = #{tag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="incView" parameterType="com.lhh.community.entity.Question">
+    update question
+    set
+    view_count =view_count + #{viewCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
 </mapper>

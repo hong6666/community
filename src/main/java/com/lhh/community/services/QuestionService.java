@@ -32,6 +32,8 @@ public interface QuestionService {
 
     void createOrUpdate(Question question);
 
+    void incView(Integer id);
+
     /*int updateByPrimaryKeySelective(Question record);
 
     int updateByPrimaryKey(Question record);*/

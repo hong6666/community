@@ -181,4 +181,15 @@ public class QuestionServiceImpl implements QuestionService {
         }
     }
 
+    @Override
+    public void incView(Integer id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewCount(1);
+        int result = questionMapper.incView(question);
+        Question testQuestion = questionMapper.selectByPrimaryKey(id);
+        if (result == 1) logger.info("阅读数加一成功,id="+testQuestion.getId()+",view="+testQuestion.getViewCount());
+        else logger.info("阅读数加一失败");
+    }
+
 }

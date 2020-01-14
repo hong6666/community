@@ -78,4 +78,6 @@ public interface QuestionMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(Question record);
+
+    int incView(Question question);
 }
