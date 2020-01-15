@@ -34,6 +34,8 @@ public interface QuestionService {
 
     void incView(Integer id);
 
+    void incCommentCount(Question question);
+
     /*int updateByPrimaryKeySelective(Question record);
 
     int updateByPrimaryKey(Question record);*/

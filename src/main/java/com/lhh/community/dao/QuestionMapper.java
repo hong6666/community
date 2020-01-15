@@ -80,4 +80,6 @@ public interface QuestionMapper {
     int updateByPrimaryKey(Question record);
 
     int incView(Question question);
+
+    int incCommentCount(Question question);
 }

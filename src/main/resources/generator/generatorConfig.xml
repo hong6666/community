@@ -37,7 +37,7 @@
         </jdbcConnection>
 
         <!-- 生成POJO对象，并将类放到com.songguoliang.springboot.entity包下 -->
-        <javaModelGenerator targetPackage="com.lhh.community.dto" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.lhh.community.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -54,7 +54,7 @@
         </javaClientGenerator>
 
         <!-- table标签可以有多个，至少一个，tableName指定数据库表名，domainObjectName指定对象名 -->
-        <table schema="community" tableName="user" domainObjectName="User"
+        <table schema="community" tableName="comment" domainObjectName="Comment"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
@@ -62,8 +62,18 @@
                selectByExampleQueryId="false"
                enableUpdateByPrimaryKey="true"
                enableSelectByPrimaryKey="true"
-                enableDeleteByPrimaryKey="true">
+               enableDeleteByPrimaryKey="true">
         </table>
+        <!--<table schema="community" tableName="user" domainObjectName="User"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"
+               enableUpdateByPrimaryKey="true"
+               enableSelectByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true">
+        </table>-->
 
         <!--<table schema="community" tableName="question" domainObjectName="Question"
                enableCountByExample="false"

@@ -244,5 +244,11 @@
     view_count =view_count + #{viewCount,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="incCommentCount" parameterType="com.lhh.community.entity.Question">
+    update question
+    set
+    comment_count =comment_count + #{commentCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 
 </mapper>

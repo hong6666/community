@@ -169,6 +169,9 @@ public class QuestionServiceImpl implements QuestionService {
             //创建插入
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setViewCount(0);
+            question.setLikeCount(0);
+            question.setCommentCount(0);
             questionMapper.insert(question);
             logger.info("问题插入成功");
         }else
@@ -187,9 +190,14 @@ public class QuestionServiceImpl implements QuestionService {
         question.setId(id);
         question.setViewCount(1);
         int result = questionMapper.incView(question);
-        Question testQuestion = questionMapper.selectByPrimaryKey(id);
-        if (result == 1) logger.info("阅读数加一成功,id="+testQuestion.getId()+",view="+testQuestion.getViewCount());
-        else logger.info("阅读数加一失败");
+        if (result != 1) logger.info("阅读数加一失败");
+    }
+
+    @Override
+    public void incCommentCount(Question question) {
+        questionMapper.incCommentCount(question);
+        Question test = questionMapper.selectByPrimaryKey(question.getId());
+        logger.info("评论加一，id="+question.getId()+"count="+test.getCommentCount());
     }
 
 }
