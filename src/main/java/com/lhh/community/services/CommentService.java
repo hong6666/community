@@ -1,6 +1,9 @@
 package com.lhh.community.services;
 
+import com.lhh.community.dto.CommentDTO;
 import com.lhh.community.entity.Comment;
+
+import java.util.List;
 
 /**
  * @program: community
@@ -9,5 +12,8 @@ import com.lhh.community.entity.Comment;
  * @Description:
  */
 public interface CommentService {
+
     void insert(Comment record);
+
+    List<CommentDTO> listByQuestionId(Integer id);
 }

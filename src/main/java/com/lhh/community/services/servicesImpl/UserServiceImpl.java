@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @program: community
  * @Date: 2020/1/2 10:39
@@ -91,6 +93,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByAccountId(String accountId) {
         return userMapper.findByAccountId(accountId);
+    }
+
+    @Override
+    public List<User> selectByIds(List list) {
+        return userMapper.selectByIds(list);
     }
 
     @Override
