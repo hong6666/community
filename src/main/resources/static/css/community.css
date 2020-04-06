@@ -24,6 +24,9 @@ body {
 .profile .section {
     margin-top: 15px;
 }
+.question-title{
+    margin-top: 25px;
+}
 .community-menu {
     display: block;
     color: #999;
@@ -53,6 +56,17 @@ body {
 .comment-sp {
     margin-top: 0;
 }
+.sub-comments {
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    padding-top: 15px;
+    margin-bottom: 15px;
+}
+
+.sub-comments .btn{
+    margin: 10px 0;
+}
 
 .menu {
     color: #999;
@@ -68,3 +82,9 @@ body {
 .menu .icon:hover {
     color: #499ef3;
 }
+
+.menu .active{
+    color: #499ef3;
+}
+
+

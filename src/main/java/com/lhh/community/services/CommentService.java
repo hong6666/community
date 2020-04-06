@@ -15,5 +15,5 @@ public interface CommentService {
 
     void insert(Comment record);
 
-    List<CommentDTO> listByQuestionId(Integer id);
+    List<CommentDTO> selectByTargetId(Integer id,Integer type);
 }

@@ -71,8 +71,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDTO> listByQuestionId(Integer id) {
-        List<Comment> comments = commentMapper.selectByQuestionId(id);
+    public List<CommentDTO> selectByTargetId(Integer id,Integer type) {
+        List<Comment> comments = commentMapper.selectByTargetId(id,type);
 
         if (comments.size() == 0){
             return new ArrayList<>();

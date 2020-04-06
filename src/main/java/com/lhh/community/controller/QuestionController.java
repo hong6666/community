@@ -2,6 +2,7 @@ package com.lhh.community.controller;
 
 import com.lhh.community.dto.CommentDTO;
 import com.lhh.community.dto.QuestionDTO;
+import com.lhh.community.enums.CommentTypeEnum;
 import com.lhh.community.services.CommentService;
 import com.lhh.community.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class QuestionController {
                            Model model)
     {
         QuestionDTO questionDTO = questionService.selectByPrimaryKey(id);
-        List<CommentDTO> comments = commentService.listByQuestionId(id);
+        List<CommentDTO> comments = commentService.selectByTargetId(id, CommentTypeEnum.QUESTION.getType());
         //累加阅读数
         questionService.incView(id);
         model.addAttribute("question",questionDTO);

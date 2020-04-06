@@ -20,11 +20,12 @@
     from comment
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectByQuestionId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByTargetId"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from comment
-    where parent_id = #{id,jdbcType=INTEGER} and type = 1;
+    where parent_id = #{id,jdbcType=INTEGER} and type = #{type,jdbcType=INTEGER}
+    order by gmt_create desc;
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

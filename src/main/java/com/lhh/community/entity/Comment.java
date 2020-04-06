@@ -22,6 +22,7 @@ public class Comment implements Serializable {
 
     private String content;
 
+
     private static final long serialVersionUID = 1L;
 
 
