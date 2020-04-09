@@ -32,6 +32,7 @@ public class QuestionController {
     public String question(@PathVariable("id") Integer id,
                            Model model)
     {
+        //
         QuestionDTO questionDTO = questionService.selectByPrimaryKey(id);
         List<CommentDTO> comments = commentService.selectByTargetId(id, CommentTypeEnum.QUESTION.getType());
         //累加阅读数
