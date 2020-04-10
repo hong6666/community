@@ -29,6 +29,7 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping("/comment")
+    @ResponseBody
     public Object post(@RequestBody CommentCreateDTO commentCreateDTO,
                        HttpServletRequest request)
     {
