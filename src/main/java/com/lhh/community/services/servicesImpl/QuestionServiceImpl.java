@@ -10,14 +10,18 @@ import com.lhh.community.exception.CustomizeErrorCode;
 import com.lhh.community.exception.CustomizeException;
 import com.lhh.community.services.QuestionService;
 import com.lhh.community.utils.LogUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.QueryTimeoutException;
 import org.springframework.stereotype.Service;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @program: community
@@ -198,6 +202,26 @@ public class QuestionServiceImpl implements QuestionService {
         questionMapper.incCommentCount(question);
         Question test = questionMapper.selectByPrimaryKey(question.getId());
         logger.info("评论加一，id="+question.getId()+"count="+test.getCommentCount());
+    }
+
+    @Override
+    public List<QuestionDTO> selectRelated(QuestionDTO question) {
+        if (StringUtils.isBlank(question.getTag()))
+        {
+            return new ArrayList<>();
+        }
+        String[] tags = StringUtils.split(question.getTag(),",");
+        String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+        Question qt = new Question();
+        qt.setId(question.getId());
+        qt.setTag(regexpTag);
+        List<Question> questions = questionMapper.selectRelated(qt);
+        List<QuestionDTO> questionDTOS = questions.stream().map(q -> {
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(q,questionDTO);
+            return questionDTO;
+        }).collect(Collectors.toList());
+        return questionDTOS;
     }
 
 }

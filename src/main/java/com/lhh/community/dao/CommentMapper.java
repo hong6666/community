@@ -25,5 +25,9 @@ public interface CommentMapper {
 
     int updateByPrimaryKey(Comment record);
 
+    /**
+     * 增加评论的评论数
+     * @param parentComment 父级评论
+     */
     void incCommentCount(@Param("parentComment") Comment parentComment);
 }

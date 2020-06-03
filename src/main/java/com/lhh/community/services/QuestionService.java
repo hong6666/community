@@ -36,6 +36,8 @@ public interface QuestionService {
 
     void incCommentCount(Question question);
 
+    List<QuestionDTO> selectRelated(QuestionDTO question);
+
     /*int updateByPrimaryKeySelective(Question record);
 
     int updateByPrimaryKey(Question record);*/

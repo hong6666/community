@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,13 +33,17 @@ public class QuestionController {
     public String question(@PathVariable("id") Integer id,
                            Model model)
     {
-        //
         QuestionDTO questionDTO = questionService.selectByPrimaryKey(id);
         List<CommentDTO> comments = commentService.selectByTargetId(id, CommentTypeEnum.QUESTION.getType());
+        //相关问题
+        List<QuestionDTO> relatedQuestions = questionService.selectRelated(questionDTO);
+
         //累加阅读数
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
         model.addAttribute("comments",comments);
+        //相关问题
+        model.addAttribute("relatedQuestions",relatedQuestions);
         return "question";
     }
 

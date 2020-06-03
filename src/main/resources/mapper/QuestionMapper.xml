@@ -57,11 +57,11 @@
   </select>
 
   <select id="selectPage" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select * from question limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+    select * from question order by gmt_create desc limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
   </select>
 
   <select id="selectPageByUserId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select * from question where creator = #{userId,jdbcType=INTEGER} limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+    select * from question where creator = #{userId,jdbcType=INTEGER} order by gmt_create desc limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
   </select>
 
 
@@ -250,5 +250,9 @@
     comment_count =comment_count + #{commentCount,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectRelated" parameterType="com.lhh.community.entity.Question" resultMap="ResultMapWithBLOBs">
+    select * from question where id != #{id} and tag regexp #{tag}
+  </select>
 
 </mapper>

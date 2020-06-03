@@ -62,7 +62,7 @@ public class CommentServiceImpl implements CommentService {
             }
             commentMapper.insert(comment);
 
-            //增加评论数
+            //增加评论的评论数
             Comment parentComment = new Comment();
             parentComment.setId(comment.getParentId());
             parentComment.setCommentCount(1);
@@ -75,6 +75,7 @@ public class CommentServiceImpl implements CommentService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
             commentMapper.insert(comment);
+            //增加问题的评论数
             question.setCommentCount(1);
             questionMapper.incCommentCount(question);
         }
