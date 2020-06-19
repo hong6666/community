@@ -22,4 +22,6 @@ public interface NotificationMapper {
     List<Notification> selectPageByUserId(@Param("userId")Integer userId, @Param("offset")Integer offset, @Param("size")Integer size);
 
     Long selectUnReadCount(@Param("userId")Integer userId);
+
+    int insert(Notification notification);
 }

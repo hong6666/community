@@ -7,8 +7,17 @@ package com.lhh.community.enums;
  * @Description:
  */
 public enum CommentTypeEnum {
+    /**
+     * 问题
+     */
     QUESTION(1),
+    /**
+     * 评论
+     */
     COMMENT(2);
+    /**
+     * 类型
+     */
     private Integer type;
 
     CommentTypeEnum(Integer type)
@@ -25,7 +34,7 @@ public enum CommentTypeEnum {
     {
         for(CommentTypeEnum commentTypeEnum:CommentTypeEnum.values())
         {
-            if (commentTypeEnum.getType() == type)
+            if (commentTypeEnum.getType().equals(type))
             {
                 return true;
             }

@@ -16,9 +16,9 @@ public class Notification {
     private Integer id;
 
     /**
-     *
+     * 要通知的人
      */
-    private Long notifier;
+    private Integer notifier;
 
     /**
      *

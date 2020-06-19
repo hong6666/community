@@ -28,4 +28,13 @@
     select * from notification where receiver = #{userId,jdbcType=INTEGER} order by gmt_create desc limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
   </select>
 
+  <insert id="insert" parameterType="com.lhh.community.entity.Notification">
+    insert into notification
+    (id, notifier, receiver,outerId, type, gmt_create,status, notifier_name, outer_title)
+    values (#{id}, #{notifier}, #{receiver},
+    #{outerid}, #{type}, #{gmtCreate},
+    #{status}, #{notifierName}, #{outerTitle}
+    )
+  </insert>
+
 </mapper>

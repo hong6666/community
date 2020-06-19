@@ -27,12 +27,12 @@ public class NotificationServiceImpl implements NotificationService {
     private NotificationMapper notificationMapper;
 
     @Override
-    public Long unreadCount(Long userId) {
+    public Long unreadCount(Integer userId) {
         return null;
     }
 
     @Override
-    public NotificationDTO read(Long id, User user) {
+    public NotificationDTO read(Integer id, User user) {
         return null;
     }
 

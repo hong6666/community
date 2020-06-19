@@ -1,17 +1,22 @@
 package com.lhh.community.services.servicesImpl;
 
 import com.lhh.community.dao.CommentMapper;
+import com.lhh.community.dao.NotificationMapper;
 import com.lhh.community.dao.QuestionMapper;
 import com.lhh.community.dao.UserMapper;
 import com.lhh.community.dto.CommentDTO;
 import com.lhh.community.entity.Comment;
+import com.lhh.community.entity.Notification;
 import com.lhh.community.entity.Question;
 import com.lhh.community.entity.User;
 import com.lhh.community.enums.CommentTypeEnum;
+import com.lhh.community.enums.NotificationStatusEnum;
+import com.lhh.community.enums.NotificationTypeEnum;
 import com.lhh.community.exception.CustomizeErrorCode;
 import com.lhh.community.exception.CustomizeException;
 import com.lhh.community.services.CommentService;
 import com.lhh.community.utils.LogUtil;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,22 +36,22 @@ import java.util.stream.Collectors;
  * @Description:
  */
 @Service
+@AllArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
-    @Autowired
     private CommentMapper commentMapper;
 
-    @Autowired
     private QuestionMapper questionMapper;
 
-    @Autowired
     private UserMapper userMapper;
+
+    private NotificationMapper notificationMapper;
 
     private Logger logger = LogUtil.logger(this.getClass());
 
     @Override
     @Transactional(rollbackFor = {Throwable.class,Exception.class})
-    public void insert(Comment comment) {
+    public void insert(Comment comment,User user) {
         if(comment.getParentId() == null || comment.getParentId() == 0) {
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
         }
@@ -60,6 +65,13 @@ public class CommentServiceImpl implements CommentService {
             if (dbComment == null) {
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
+
+            //回复问题
+            Question question = questionMapper.selectByPrimaryKey(dbComment.getParentId());
+            if (question == null) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
+
             commentMapper.insert(comment);
 
             //增加评论的评论数
@@ -67,6 +79,9 @@ public class CommentServiceImpl implements CommentService {
             parentComment.setId(comment.getParentId());
             parentComment.setCommentCount(1);
             commentMapper.incCommentCount(parentComment);
+
+            //创建通知
+//            createNotify();
         }else
         {
             //回复问题
@@ -79,6 +94,30 @@ public class CommentServiceImpl implements CommentService {
             question.setCommentCount(1);
             questionMapper.incCommentCount(question);
         }
+    }
+
+    /**
+     * 创建通知
+     * @param comment 评论
+     * @param receiver 接收人
+     * @param notifierName 通知人名字
+     * @param outerTitle 外部标题
+     * @param notificationType 通知类型
+     * @param outerId 外部标题id
+     */
+    private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType,Long outerId) {
+        Notification notification = new Notification();
+        //创建时间
+        notification.setGmtCreate(System.currentTimeMillis());
+        //通知类型
+        notification.setType(notificationType.getType());
+        notification.setOuterid(outerId);
+        notification.setNotifier(comment.getCommentator());
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        notification.setReceiver(receiver);
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
+        notificationMapper.insert(notification);
     }
 
     @Override

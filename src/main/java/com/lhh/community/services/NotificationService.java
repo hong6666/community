@@ -17,7 +17,7 @@ public interface NotificationService {
      * @param userId userId
      * @return
      */
-    Long unreadCount(Long userId);
+    Long unreadCount(Integer userId);
 
     /**
      *
@@ -25,7 +25,7 @@ public interface NotificationService {
      * @param user user
      * @return
      */
-    NotificationDTO read(Long id, User user);
+    NotificationDTO read(Integer id, User user);
 
     /**
      * 分页
