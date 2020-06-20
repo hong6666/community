@@ -29,7 +29,7 @@ public class PublicController {
     private QuestionService questionService;
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable("id") Integer id,Model model)
+    public String edit(@PathVariable("id") Long id,Model model)
     {
         QuestionDTO question = questionService.selectByPrimaryKey(id);
         model.addAttribute("title",question.getTitle());

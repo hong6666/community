@@ -30,7 +30,7 @@ public class QuestionController {
     private CommentService commentService;
 
     @GetMapping("/question/{id}")
-    public String question(@PathVariable("id") Integer id,
+    public String question(@PathVariable("id") Long id,
                            Model model)
     {
         QuestionDTO questionDTO = questionService.selectByPrimaryKey(id);

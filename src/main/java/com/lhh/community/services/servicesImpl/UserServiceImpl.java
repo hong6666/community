@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     private Logger logger = LogUtil.logger(this.getClass());
 
     @Override
-    public int deleteByPrimaryKey(Integer id) {
+    public int deleteByPrimaryKey(Long id) {
         return 0;
     }
 
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectByPrimaryKey(Integer id) {
+    public User selectByPrimaryKey(Long id) {
         return userMapper.selectByPrimaryKey(id);
     }
 
