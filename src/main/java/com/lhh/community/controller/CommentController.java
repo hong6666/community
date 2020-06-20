@@ -34,7 +34,7 @@ public class CommentController {
                        HttpServletRequest request)
     {
         User user = (User)request.getSession().getAttribute("user");
-        if (user == null) return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
+        if (user == null) {return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);}
         if (commentCreateDTO == null || StringUtils.isBlank(commentCreateDTO.getContent())){
             return ResultDTO.errorOf(CustomizeErrorCode.CONTENT_IS_EMPTY);
         }
@@ -45,14 +45,14 @@ public class CommentController {
         comment.setGmtModified(System.currentTimeMillis());
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setCommentator(user.getId());
-        comment.setLikeCount(0);
+        comment.setLikeCount(0L);
         commentService.insert(comment,user);
         return ResultDTO.okOf();
     }
 
     @ResponseBody
     @GetMapping("/comment/{id}")
-    public ResultDTO<List<CommentDTO>> comments(@PathVariable("id")Integer id){
+    public ResultDTO<List<CommentDTO>> comments(@PathVariable("id")Long id){
         List<CommentDTO> commentDTOS = commentService.selectByTargetId(id, CommentTypeEnum.COMMENT.getType());
         return ResultDTO.okOf(commentDTOS);
     }

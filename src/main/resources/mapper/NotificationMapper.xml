@@ -16,16 +16,21 @@
     id, notifier, receiver, outerId, type, gmt_create, status, notifier_name ,outer_title
   </sql>
 
-  <select id="countByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    select count(1) from notification where receiver = #{userId,jdbcType=INTEGER}
+  <select id="countByUserId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    select count(1) from notification
+    where receiver = #{userId,jdbcType=INTEGER}
   </select>
 
-  <select id="selectPageByUserId" parameterType="java.lang.Integer" resultType="com.lhh.community.entity.Notification">
-    select * from notification where receiver = #{userId,jdbcType=INTEGER} order by gmt_create desc limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  <select id="selectPageByUserId" parameterType="java.lang.Long" resultType="com.lhh.community.entity.Notification">
+    select * from notification
+    where receiver = #{userId,jdbcType=INTEGER}
+    order by gmt_create desc
+    limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
   </select>
 
-  <select id="selectUnReadCount" parameterType="java.lang.Integer" resultType="com.lhh.community.entity.Notification">
-    select * from notification where receiver = #{userId,jdbcType=INTEGER} order by gmt_create desc limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  <select id="selectUnReadCount" parameterType="java.lang.Long" resultType="java.lang.Long">
+    select count(1) from notification
+    where receiver = #{userId,jdbcType=INTEGER} and status = #{status}
   </select>
 
   <insert id="insert" parameterType="com.lhh.community.entity.Notification">

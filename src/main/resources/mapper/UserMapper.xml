@@ -13,11 +13,11 @@
   <sql id="Base_Column_List">
     id, name, accountId, token, gmtCreate, gmtModified, avatar_url
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </select>
 
   <select id="findByToken" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -40,15 +40,15 @@
     from user
     where id in
     <foreach item="item" collection="list" separator="," open="(" close=")" index="">
-      #{item,jdbcType=INTEGER}
+      #{item}
     </foreach>
   </select>
 
 
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from user
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </delete>
   <insert id="insert" parameterType="com.lhh.community.entity.User">
     insert into user (id, name, accountId, 
@@ -139,6 +139,6 @@
       gmtCreate = #{gmtcreate,jdbcType=BIGINT},
       gmtModified = #{gmtmodified,jdbcType=BIGINT},
       avatar_url = #{avatarUrl,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id}
   </update>
 </mapper>

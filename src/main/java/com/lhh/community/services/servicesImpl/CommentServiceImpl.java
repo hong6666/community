@@ -51,7 +51,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(rollbackFor = {Throwable.class,Exception.class})
-    public void insert(Comment comment,User user) {
+    public void insert(Comment comment,User commentator) {
         if(comment.getParentId() == null || comment.getParentId() == 0) {
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
         }
@@ -77,11 +77,12 @@ public class CommentServiceImpl implements CommentService {
             //增加评论的评论数
             Comment parentComment = new Comment();
             parentComment.setId(comment.getParentId());
-            parentComment.setCommentCount(1);
+            parentComment.setCommentCount(1L);
             commentMapper.incCommentCount(parentComment);
 
             //创建通知
-//            createNotify();
+            createNotify(comment,question.getCreator(),commentator.getName(),
+                    question.getTitle(),NotificationTypeEnum.REPLY_COMMENT,question.getId());
         }else
         {
             //回复问题
@@ -91,7 +92,7 @@ public class CommentServiceImpl implements CommentService {
             }
             commentMapper.insert(comment);
             //增加问题的评论数
-            question.setCommentCount(1);
+            question.setCommentCount(1L);
             questionMapper.incCommentCount(question);
         }
     }
@@ -121,7 +122,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDTO> selectByTargetId(Integer id,Integer type) {
+    public List<CommentDTO> selectByTargetId(Long id,Integer type) {
         List<Comment> comments = commentMapper.selectByTargetId(id,type);
 
         if (comments.size() == 0){
@@ -129,13 +130,13 @@ public class CommentServiceImpl implements CommentService {
         }
 
         //获取去重的评论人
-        Set<Integer> commentators = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
-        List<Integer> userIds = new ArrayList<>();
+        Set<Long> commentators = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
+        List<Long> userIds = new ArrayList<>();
         userIds.addAll(commentators);
 
         //获取评论人并转换为Map
         List<User> users = userMapper.selectByIds(userIds);
-        Map<Integer,User> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(),user -> user));
+        Map<Long,User> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(),user -> user));
 
         //转换comment为commentDTO
         List<CommentDTO> commentDTOS = comments.stream().map(comment -> {

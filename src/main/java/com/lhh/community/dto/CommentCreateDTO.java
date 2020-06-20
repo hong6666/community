@@ -10,7 +10,19 @@ import lombok.Data;
  */
 @Data
 public class CommentCreateDTO {
-    private Integer parentId;
+
+    /**
+     * 评论的父id
+     */
+    private Long parentId;
+
+    /**
+     * 内容
+     */
     private String content;
+
+    /**
+     * 类型
+     */
     private Integer type;
 }

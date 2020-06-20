@@ -11,24 +11,23 @@ import java.util.List;
 @Mapper
 public interface QuestionMapper {
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(Question record);
 
-    int insertSelective(Question record);
 
-    Question selectByPrimaryKey(Integer id);
+    Question selectByPrimaryKey(Long id);
 
 
     List<Question> selectAll();
 
     List<Question> selectPage(@Param("offset")Integer offset,@Param("size")Integer size);
 
-    List<Question> selectPageByUserId(@Param("userId")Integer userId,@Param("offset")Integer offset,@Param("size")Integer size);
+    List<Question> selectPageByUserId(@Param("userId")Long userId,@Param("offset")Integer offset,@Param("size")Integer size);
 
     int count();
 
-    int countByUserId(@Param("userId")Integer userId);
+    int countByUserId(@Param("userId")Long userId);
 
     int updateByPrimaryKeySelective(Question record);
 

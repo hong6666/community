@@ -8,8 +8,19 @@ package com.lhh.community.enums;
  */
 public enum  NotificationStatusEnum {
 
-    UNREAD(0),READ(1);
+    /**
+     * 未读为0
+     */
+    UNREAD(0),
 
+    /**
+     * 已读为1
+     */
+    READ(1);
+
+    /**
+     * 状态
+     */
     private int status;
 
     public int getStatus() {

@@ -14,7 +14,7 @@ public class NotificationDTO {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 创建时间

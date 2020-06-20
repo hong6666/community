@@ -27,5 +27,5 @@ public interface CommentService {
      * @param type 类型是
      * @return
      */
-    List<CommentDTO> selectByTargetId(Integer id,Integer type);
+    List<CommentDTO> selectByTargetId(Long id,Integer type);
 }

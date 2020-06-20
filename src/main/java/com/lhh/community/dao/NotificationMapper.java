@@ -17,11 +17,34 @@ import java.util.List;
 @Mapper
 public interface NotificationMapper {
 
-    int countByUserId(@Param("userId")Integer userId);
+    /**
+     * 通过userId查询通知数量
+     * @param userId userId
+     * @return int
+     */
+    int countByUserId(@Param("userId")Long userId);
 
-    List<Notification> selectPageByUserId(@Param("userId")Integer userId, @Param("offset")Integer offset, @Param("size")Integer size);
+    /**
+     * 通知分页
+     * @param userId userId
+     * @param offset offset
+     * @param size size
+     * @return 返回分页信息
+     */
+    List<Notification> selectPageByUserId(@Param("userId")Long userId, @Param("offset")Integer offset, @Param("size")Integer size);
 
-    Long selectUnReadCount(@Param("userId")Integer userId);
+    /**
+     * 通过用户id和状态查询未读的数量
+     * @param userId userId
+     * @param status NotificationStatusEnum的status
+     * @return
+     */
+    Long selectUnReadCount(@Param("userId")Long userId,@Param("status")Integer status);
 
+    /**
+     * 通知插入
+     * @param notification 通知
+     * @return 返回插入条数
+     */
     int insert(Notification notification);
 }

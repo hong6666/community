@@ -13,12 +13,12 @@ public class Notification {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 要通知的人
      */
-    private Integer notifier;
+    private Long notifier;
 
     /**
      *

@@ -17,9 +17,9 @@ public interface CommentMapper {
 
     int insertSelective(Comment record);
 
-    Comment selectByPrimaryKey(Integer id);
+    Comment selectByPrimaryKey(Long id);
 
-    List<Comment> selectByTargetId(@Param("id") Integer id, @Param("type") Integer type);
+    List<Comment> selectByTargetId(@Param("id") Long id, @Param("type") Integer type);
 
     int updateByPrimaryKeySelective(Comment record);
 

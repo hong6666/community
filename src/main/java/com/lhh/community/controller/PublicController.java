@@ -51,7 +51,7 @@ public class PublicController {
     public String doPublish(@RequestParam("title")String title,
                             @RequestParam("description")String description,
                             @RequestParam("tag")String tag,
-                            @RequestParam("id")Integer id,
+                            @RequestParam("id")Long id,
                             HttpServletRequest request,
                             Model model)
     {

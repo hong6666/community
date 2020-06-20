@@ -27,7 +27,7 @@ public class NotificationServiceImpl implements NotificationService {
     private NotificationMapper notificationMapper;
 
     @Override
-    public Long unreadCount(Integer userId) {
+    public Long unreadCount(Long userId) {
         return null;
     }
 
@@ -37,7 +37,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public PaginationDTO list(Integer userId, Integer page, Integer size) {
+    public PaginationDTO list(Long userId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalPage;
         Integer totalCount = notificationMapper.countByUserId(userId);

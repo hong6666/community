@@ -93,8 +93,8 @@ public class QuestionServiceImpl implements QuestionService {
             totalPage = totalCount / size + 1;
         }
 
-        if(page < 1) page = 1;
-        if(page > totalPage) page = totalPage;
+        if(page < 1){ page = 1;}
+        if(page > totalPage) {page = totalPage;}
 
         paginationDTO.setPagination(totalPage,page);
 
@@ -116,7 +116,7 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public PaginationDTO questionPage(Integer userId, Integer page, Integer size) {
+    public PaginationDTO questionPage(Long userId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalPage;
         Integer totalCount = questionMapper.countByUserId(userId);
@@ -125,8 +125,8 @@ public class QuestionServiceImpl implements QuestionService {
         } else {
             totalPage = totalCount / size + 1;
         }
-        if(page < 1) page = 1;
-        if(page > totalPage) page = totalPage;
+        if(page < 1) {page = 1;}
+        if(page > totalPage) {page = totalPage;}
 
         paginationDTO.setPagination(totalPage,page);
         Integer offset = size * (page - 1);
@@ -151,12 +151,12 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public int countByUserId(Integer userId) {
+    public int countByUserId(Long userId) {
         return questionMapper.countByUserId(userId);
     }
 
     @Override
-    public QuestionDTO selectByPrimaryKey(Integer id) {
+    public QuestionDTO selectByPrimaryKey(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if(question == null)throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         QuestionDTO questionDTO = new QuestionDTO();
@@ -173,9 +173,9 @@ public class QuestionServiceImpl implements QuestionService {
             //创建插入
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
-            question.setViewCount(0);
-            question.setLikeCount(0);
-            question.setCommentCount(0);
+            question.setViewCount(0L);
+            question.setLikeCount(0L);
+            question.setCommentCount(0L);
             questionMapper.insert(question);
             logger.info("问题插入成功");
         }else
@@ -189,12 +189,12 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public void incView(Integer id) {
+    public void incView(Long id) {
         Question question = new Question();
         question.setId(id);
-        question.setViewCount(1);
+        question.setViewCount(1L);
         int result = questionMapper.incView(question);
-        if (result != 1) logger.info("阅读数加一失败");
+        if (result != 1) {logger.info("阅读数加一失败");}
     }
 
     @Override

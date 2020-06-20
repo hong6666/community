@@ -9,11 +9,11 @@ public class Comment implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
     /**
      * 上级id
      */
-    private Integer parentId;
+    private Long parentId;
     /**
      * 类型，QUESTION(1),COMMENT(2);
      */
@@ -21,7 +21,7 @@ public class Comment implements Serializable {
     /**
      * 评论创建者
      */
-    private Integer commentator;
+    private Long commentator;
     /**
      * 评论创建时间
      */
@@ -33,7 +33,7 @@ public class Comment implements Serializable {
     /**
      * 收藏数
      */
-    private Integer likeCount;
+    private Long likeCount;
     /**
      * 评论内容
      */
@@ -41,7 +41,7 @@ public class Comment implements Serializable {
     /**
      * 下级评论数量
      */
-    private Integer commentCount;
+    private Long commentCount;
 
 
     private static final long serialVersionUID = 1L;

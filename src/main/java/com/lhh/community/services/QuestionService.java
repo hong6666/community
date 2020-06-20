@@ -22,17 +22,21 @@ public interface QuestionService {
 
     PaginationDTO questionPage(Integer page, Integer size);
 
-    PaginationDTO questionPage(Integer userId,Integer page,Integer size);
+    PaginationDTO questionPage(Long userId,Integer page,Integer size);
 
     int count();
 
-    int countByUserId(Integer userId);
+    int countByUserId(Long userId);
 
-    QuestionDTO selectByPrimaryKey(Integer id);
+    QuestionDTO selectByPrimaryKey(Long id);
 
     void createOrUpdate(Question question);
 
-    void incView(Integer id);
+    /**
+     * 阅读数加
+     * @param id 问题id
+     */
+    void incView(Long id);
 
     void incCommentCount(Question question);
 

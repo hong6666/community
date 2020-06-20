@@ -17,7 +17,7 @@ public interface NotificationService {
      * @param userId userId
      * @return
      */
-    Long unreadCount(Integer userId);
+    Long unreadCount(Long userId);
 
     /**
      *
@@ -34,5 +34,5 @@ public interface NotificationService {
      * @param size size一页多少条数据
      * @return
      */
-    PaginationDTO list(Integer userId, Integer page, Integer size);
+    PaginationDTO list(Long userId, Integer page, Integer size);
 }
