@@ -158,7 +158,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public QuestionDTO selectByPrimaryKey(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
-        if(question == null)throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        if(question == null){throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);}
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -183,7 +183,7 @@ public class QuestionServiceImpl implements QuestionService {
             //更新
             question.setGmtModified(System.currentTimeMillis());
             int updateResult = questionMapper.updateByPrimaryKey(question);
-            if(updateResult != 1)throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            if(updateResult != 1) {throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);}
             logger.info("问题id="+question.getId()+"更新了");
         }
     }

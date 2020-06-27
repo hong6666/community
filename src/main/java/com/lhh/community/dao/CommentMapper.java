@@ -15,7 +15,7 @@ public interface CommentMapper {
 
     int insert(Comment record);
 
-    int insertSelective(Comment record);
+//    int insertSelective(Comment record);
 
     Comment selectByPrimaryKey(Long id);
 

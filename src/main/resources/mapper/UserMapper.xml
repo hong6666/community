@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lhh.community.dao.UserMapper">
   <resultMap id="BaseResultMap" type="com.lhh.community.entity.User">
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="accountId" jdbcType="VARCHAR" property="accountid" />
     <result column="token" jdbcType="VARCHAR" property="token" />
@@ -17,7 +17,7 @@
     select 
     <include refid="Base_Column_List" />
     from user
-    where id = #{id}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
   <select id="findByToken" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -48,13 +48,13 @@
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from user
-    where id = #{id}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.lhh.community.entity.User">
     insert into user (id, name, accountId, 
       token, gmtCreate, gmtModified, 
       avatar_url)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{accountid,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{accountid,jdbcType=VARCHAR},
       #{token,jdbcType=VARCHAR}, #{gmtcreate,jdbcType=BIGINT}, #{gmtmodified,jdbcType=BIGINT}, 
       #{avatarUrl,jdbcType=VARCHAR})
   </insert>
@@ -85,7 +85,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -129,7 +129,7 @@
         avatar_url = #{avatarUrl,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lhh.community.entity.User">
     update user
@@ -139,6 +139,6 @@
       gmtCreate = #{gmtcreate,jdbcType=BIGINT},
       gmtModified = #{gmtmodified,jdbcType=BIGINT},
       avatar_url = #{avatarUrl,jdbcType=VARCHAR}
-    where id = #{id}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

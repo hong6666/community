@@ -29,7 +29,7 @@ public interface QuestionMapper {
 
     int countByUserId(@Param("userId")Long userId);
 
-    int updateByPrimaryKeySelective(Question record);
+//    int updateByPrimaryKeySelective(Question record);
 
 
     int updateByPrimaryKeyWithBLOBs(Question record);

@@ -28,12 +28,17 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    /**
+     * 新增评论
+     */
     @PostMapping("/comment")
     @ResponseBody
     public Object post(@RequestBody CommentCreateDTO commentCreateDTO,
                        HttpServletRequest request)
     {
+        //session中获取用户信息
         User user = (User)request.getSession().getAttribute("user");
+        //若用户信息为空，则返回错误页面
         if (user == null) {return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);}
         if (commentCreateDTO == null || StringUtils.isBlank(commentCreateDTO.getContent())){
             return ResultDTO.errorOf(CustomizeErrorCode.CONTENT_IS_EMPTY);
@@ -50,6 +55,9 @@ public class CommentController {
         return ResultDTO.okOf();
     }
 
+    /**
+     *
+     */
     @ResponseBody
     @GetMapping("/comment/{id}")
     public ResultDTO<List<CommentDTO>> comments(@PathVariable("id")Long id){

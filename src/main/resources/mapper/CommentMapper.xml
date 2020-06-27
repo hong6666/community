@@ -19,19 +19,19 @@
     select 
     <include refid="Base_Column_List" />
     from comment
-    where id = #{id}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <select id="selectByTargetId"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from comment
-    where parent_id = #{id} and type = #{type,jdbcType=INTEGER}
+    where parent_id = #{id,jdbcType=BIGINT} and type = #{type,jdbcType=INTEGER}
     order by gmt_create desc;
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from comment
-    where id = #{id}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lhh.community.entity.Comment">
     insert into comment (id, parent_id, type, 
@@ -39,20 +39,20 @@
       like_count, content,comment_count)
     values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{type,jdbcType=INTEGER},
       #{commentator,jdbcType=BIGINT}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT},
-      #{likeCount,}, #{content,jdbcType=VARCHAR}, #{commentCount,jdbcType=BIGINT})
+      #{likeCount,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{commentCount,jdbcType=BIGINT})
   </insert>
 
   <update id="updateByPrimaryKeySelective" parameterType="com.lhh.community.entity.Comment">
     update comment
     <set>
       <if test="parentId != null">
-        parent_id = #{parentId,jdbcType=INTEGER},
+        parent_id = #{parentId,jdbcType=BIGINT},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
       <if test="commentator != null">
-        commentator = #{commentator,jdbcType=INTEGER},
+        commentator = #{commentator,jdbcType=BIGINT},
       </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=BIGINT},
@@ -61,7 +61,7 @@
         gmt_modified = #{gmtModified,jdbcType=BIGINT},
       </if>
       <if test="likeCount != null">
-        like_count = #{likeCount,jdbcType=INTEGER},
+        like_count = #{likeCount,jdbcType=BIGINT},
       </if>
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
@@ -70,29 +70,29 @@
         content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
-        comment_count =  #{commentCount,jdbcType=INTEGER}
+        comment_count =  #{commentCount,jdbcType=BIGINT}
       </if>
 
 
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lhh.community.entity.Comment">
     update comment
-    set parent_id = #{parentId,jdbcType=INTEGER},
+    set parent_id = #{parentId,jdbcType=BIGINT},
       type = #{type,jdbcType=INTEGER},
-      commentator = #{commentator,jdbcType=INTEGER},
+      commentator = #{commentator,jdbcType=BIGINT},
       gmt_create = #{gmtCreate,jdbcType=BIGINT},
       gmt_modified = #{gmtModified,jdbcType=BIGINT},
-      like_count = #{likeCount,jdbcType=INTEGER},
+      like_count = #{likeCount,jdbcType=BIGINT},
       content = #{content,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
   <update id="incCommentCount" parameterType="com.lhh.community.entity.Comment">
     update comment
     set
-    comment_count = comment_count + #{parentComment.commentCount,jdbcType=INTEGER}
-    where id = #{parentComment.id}
+    comment_count = comment_count + #{parentComment.commentCount,jdbcType=BIGINT}
+    where id = #{parentComment.id,jdbcType=BIGINT}
   </update>
 </mapper>

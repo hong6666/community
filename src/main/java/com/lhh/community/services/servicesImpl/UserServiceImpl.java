@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,8 +87,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByToken(String token) {
-        return userMapper.findByToken(token);
+    public List<User> findByToken(String token) {
+        List<User> users = userMapper.findByToken(token);
+        return users;
     }
 
     @Override

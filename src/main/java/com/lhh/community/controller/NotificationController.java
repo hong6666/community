@@ -30,7 +30,7 @@ public class NotificationController {
      * @return
      */
     @GetMapping("/notification/{id}")
-    public String profile(HttpServletRequest request, @PathVariable(name = "id") Integer id) {
+    public String profile(HttpServletRequest request, @PathVariable(name = "id") Long id) {
         //通过session得到角色信息
         User user = (User)request.getSession().getAttribute("user");
         if (user == null) {

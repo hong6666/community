@@ -37,7 +37,7 @@ public interface NotificationMapper {
      * 通过用户id和状态查询未读的数量
      * @param userId userId
      * @param status NotificationStatusEnum的status
-     * @return
+     * @return Long
      */
     Long selectUnReadCount(@Param("userId")Long userId,@Param("status")Integer status);
 
@@ -47,4 +47,18 @@ public interface NotificationMapper {
      * @return 返回插入条数
      */
     int insert(Notification notification);
+
+    /**
+     * 更新
+     * @param notification notification
+     * @return int
+     */
+    int updateById(Notification notification);
+
+    /**
+     * 通过id查通知
+     * @param Id
+     * @return Notification
+     */
+    Notification selectById(Long Id);
 }

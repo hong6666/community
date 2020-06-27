@@ -13,19 +13,19 @@ import com.lhh.community.entity.User;
 public interface NotificationService {
 
     /**
-     *
+     * 通知未读的数量
      * @param userId userId
      * @return
      */
     Long unreadCount(Long userId);
 
     /**
-     *
+     * 阅读通知后更新通知状态为已读
      * @param id id
      * @param user user
      * @return
      */
-    NotificationDTO read(Integer id, User user);
+    NotificationDTO read(Long id, User user);
 
     /**
      * 分页

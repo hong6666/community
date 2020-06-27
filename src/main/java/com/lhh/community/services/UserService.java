@@ -23,7 +23,7 @@ public interface UserService {
 
     int updateByPrimaryKey(User record);
 
-    User findByToken(String token);
+    List<User> findByToken(String token);
 
     User findByAccountId(String accountId);
 

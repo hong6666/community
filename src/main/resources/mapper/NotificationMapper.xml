@@ -18,28 +18,48 @@
 
   <select id="countByUserId" parameterType="java.lang.Long" resultType="java.lang.Integer">
     select count(1) from notification
-    where receiver = #{userId,jdbcType=INTEGER}
+    where receiver = #{userId,jdbcType=BIGINT}
   </select>
 
-  <select id="selectPageByUserId" parameterType="java.lang.Long" resultType="com.lhh.community.entity.Notification">
+  <select id="selectPageByUserId"  resultType="com.lhh.community.entity.Notification">
     select * from notification
-    where receiver = #{userId,jdbcType=INTEGER}
+    where receiver = #{userId,jdbcType=BIGINT}
     order by gmt_create desc
     limit #{offset,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
   </select>
 
-  <select id="selectUnReadCount" parameterType="java.lang.Long" resultType="java.lang.Long">
+  <select id="selectUnReadCount"  resultType="java.lang.Long">
     select count(1) from notification
-    where receiver = #{userId,jdbcType=INTEGER} and status = #{status}
+    where receiver = #{userId,jdbcType=BIGINT} and status = #{status,jdbcType=INTEGER}
   </select>
 
   <insert id="insert" parameterType="com.lhh.community.entity.Notification">
     insert into notification
     (id, notifier, receiver,outerId, type, gmt_create,status, notifier_name, outer_title)
-    values (#{id}, #{notifier}, #{receiver},
-    #{outerid}, #{type}, #{gmtCreate},
-    #{status}, #{notifierName}, #{outerTitle}
+    values (#{id,jdbcType=BIGINT}, #{notifier,jdbcType=BIGINT}, #{receiver,jdbcType=BIGINT},
+    #{outerid,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{gmtCreate,jdbcType=BIGINT},
+    #{status,jdbcType=INTEGER}, #{notifierName,jdbcType=VARCHAR}, #{outerTitle,jdbcType=VARCHAR}
     )
   </insert>
 
+  <update id="updateById" parameterType="com.lhh.community.entity.Notification">
+    update notification
+    set notifier = #{notifier,jdbcType=BIGINT},
+    receiver = #{receiver,jdbcType=BIGINT},
+    outerId = #{outerid,jdbcType=BIGINT},
+    type = #{type,jdbcType=INTEGER},
+    gmt_create = #{gmtCreate,jdbcType=BIGINT},
+    status = #{status,jdbcType=INTEGER},
+    notifier_name = #{notifierName,jdbcType=VARCHAR},
+    outer_title = #{outerTitle,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+
+  <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from notification
+    where id = #{id,jdbcType=BIGINT}
+  </select>
 </mapper>

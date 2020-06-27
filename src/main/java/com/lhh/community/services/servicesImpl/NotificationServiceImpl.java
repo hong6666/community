@@ -5,7 +5,10 @@ import com.lhh.community.dto.NotificationDTO;
 import com.lhh.community.dto.PaginationDTO;
 import com.lhh.community.entity.Notification;
 import com.lhh.community.entity.User;
+import com.lhh.community.enums.NotificationStatusEnum;
 import com.lhh.community.enums.NotificationTypeEnum;
+import com.lhh.community.exception.CustomizeErrorCode;
+import com.lhh.community.exception.CustomizeException;
 import com.lhh.community.services.NotificationService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * NotificationServiceImpl
@@ -28,12 +32,27 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public Long unreadCount(Long userId) {
-        return null;
+        return notificationMapper.selectUnReadCount(userId, NotificationStatusEnum.UNREAD.getStatus());
     }
 
     @Override
-    public NotificationDTO read(Integer id, User user) {
-        return null;
+    public NotificationDTO read(Long id, User user) {
+        Notification notification = notificationMapper.selectById(id);
+        if (notification == null)
+        {
+            throw new CustomizeException(CustomizeErrorCode.NOTIFICATION_NOT_FOUND);
+        }
+        if (!Objects.equals(notification.getReceiver(),user.getId()))
+        {
+            throw new CustomizeException(CustomizeErrorCode.READ_NOTIFICATION_FAIL);
+        }
+        notification.setStatus(NotificationStatusEnum.READ.getStatus());
+        notificationMapper.updateById(notification);
+
+        NotificationDTO notificationDTO = new NotificationDTO();
+        BeanUtils.copyProperties(notification,notificationDTO);
+        notificationDTO.setTypeName(NotificationTypeEnum.nameOfType(notification.getType()));
+        return notificationDTO;
     }
 
     @Override
@@ -46,8 +65,8 @@ public class NotificationServiceImpl implements NotificationService {
         } else {
             totalPage = totalCount / size + 1;
         }
-        if(page < 1) page = 1;
-        if(page > totalPage) page = totalPage;
+        if(page < 1) {page = 1;}
+        if(page > totalPage) {page = totalPage;}
 
         paginationDTO.setPagination(totalPage,page);
         Integer offset = size * (page - 1);

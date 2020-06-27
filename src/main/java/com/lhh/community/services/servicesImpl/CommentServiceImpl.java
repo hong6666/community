@@ -36,15 +36,18 @@ import java.util.stream.Collectors;
  * @Description:
  */
 @Service
-@AllArgsConstructor
 public class CommentServiceImpl implements CommentService {
 
+    @Autowired
     private CommentMapper commentMapper;
 
+    @Autowired
     private QuestionMapper questionMapper;
 
+    @Autowired
     private UserMapper userMapper;
 
+    @Autowired
     private NotificationMapper notificationMapper;
 
     private Logger logger = LogUtil.logger(this.getClass());
@@ -82,7 +85,8 @@ public class CommentServiceImpl implements CommentService {
 
             //创建通知
             createNotify(comment,question.getCreator(),commentator.getName(),
-                    question.getTitle(),NotificationTypeEnum.REPLY_COMMENT,question.getId());
+                    question.getTitle(),NotificationTypeEnum.REPLY_COMMENT,
+                    question.getId());
         }else
         {
             //回复问题
@@ -94,6 +98,10 @@ public class CommentServiceImpl implements CommentService {
             //增加问题的评论数
             question.setCommentCount(1L);
             questionMapper.incCommentCount(question);
+            //创建通知
+            createNotify(comment,question.getCreator(),commentator.getName(),
+                    question.getTitle(),NotificationTypeEnum.REPLY_QUESTION,
+                    question.getId());
         }
     }
 
