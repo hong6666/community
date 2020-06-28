@@ -77,6 +77,13 @@ public class AuthorizeController {
             return "redirect:/";
         }
     }
+
+    /**
+     * 登出，退出
+     * @param request request
+     * @param response response
+     * @return 跳回登录页面
+     */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request,
                          HttpServletResponse response) {

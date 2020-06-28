@@ -15,6 +15,11 @@ public interface UserMapper {
 
     int insertSelective(User record);
 
+    /**
+     *
+     * @param id 用户id
+     * @return 用户实体类 User
+     */
     User selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(User record);

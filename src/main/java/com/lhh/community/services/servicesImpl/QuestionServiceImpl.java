@@ -158,9 +158,13 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public QuestionDTO selectByPrimaryKey(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
-        if(question == null){throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);}
+        //问题为空，抛出找不到问题的异常
+        if(question == null) {
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
+        //通过问题的创建者号码，得到创建者的信息，前端要String类型的姓名
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         questionDTO.setUser(user);
         return questionDTO;

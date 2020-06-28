@@ -28,6 +28,11 @@ public interface QuestionService {
 
     int countByUserId(Long userId);
 
+    /**
+     * 通过问题id得到问题的传输实体类
+     * @param id 问题id
+     * @return QuestionDTO
+     */
     QuestionDTO selectByPrimaryKey(Long id);
 
     void createOrUpdate(Question question);

@@ -56,7 +56,7 @@ public class CommentController {
     }
 
     /**
-     *
+     * 通过评论id得到评论下面的二级评论
      */
     @ResponseBody
     @GetMapping("/comment/{id}")

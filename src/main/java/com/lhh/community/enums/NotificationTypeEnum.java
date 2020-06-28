@@ -8,7 +8,13 @@ package com.lhh.community.enums;
  */
 public enum  NotificationTypeEnum {
 
+    /**
+     * 1,"回复了问题"
+     */
     REPLY_QUESTION(1,"回复了问题"),
+    /**
+     * 2,"回复了评论"
+     */
     REPLY_COMMENT(2,"回复了评论");
 
     private int type;

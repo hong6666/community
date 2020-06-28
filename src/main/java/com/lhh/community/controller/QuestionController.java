@@ -29,20 +29,27 @@ public class QuestionController {
     @Autowired
     private CommentService commentService;
 
+    /**
+     * 问题详情页
+     * @param id 问题id
+     * @param model Model
+     * @return question.html
+     */
     @GetMapping("/question/{id}")
     public String question(@PathVariable("id") Long id,
                            Model model)
     {
+        //问题的相关信息
         QuestionDTO questionDTO = questionService.selectByPrimaryKey(id);
+        //问题的评论
         List<CommentDTO> comments = commentService.selectByTargetId(id, CommentTypeEnum.QUESTION.getType());
         //相关问题
         List<QuestionDTO> relatedQuestions = questionService.selectRelated(questionDTO);
-
         //累加阅读数
         questionService.incView(id);
+
         model.addAttribute("question",questionDTO);
         model.addAttribute("comments",comments);
-        //相关问题
         model.addAttribute("relatedQuestions",relatedQuestions);
         return "question";
     }
