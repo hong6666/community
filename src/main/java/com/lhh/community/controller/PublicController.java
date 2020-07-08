@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @program: community
  * @Date: 2020/1/2 16:03
  * @Author: lhh
- * @Description:
+ * @Description: 发布
  */
 @Controller
 public class PublicController {
@@ -28,6 +28,12 @@ public class PublicController {
     @Autowired
     private QuestionService questionService;
 
+    /**
+     * 编辑已发布问题页面
+     * @param id id
+     * @param model model
+     * @return 发布页面
+     */
     @GetMapping("/publish/{id}")
     public String edit(@PathVariable("id") Long id,Model model)
     {
@@ -40,13 +46,28 @@ public class PublicController {
         return "publish";
     }
 
+    /**
+     * 发布页面
+     * @param model model标签
+     * @return 发布页面
+     */
     @GetMapping("/publish")
-    public String publicsh(Model model)
+    public String publish(Model model)
     {
         model.addAttribute("tags",TagCache.get());
         return "publish";
     }
 
+    /**
+     * 发布问题
+     * @param title title
+     * @param description description
+     * @param tag tag
+     * @param id id
+     * @param request request
+     * @param model model
+     * @return 返回主页
+     */
     @PostMapping("/publish")
     public String doPublish(@RequestParam("title")String title,
                             @RequestParam("description")String description,

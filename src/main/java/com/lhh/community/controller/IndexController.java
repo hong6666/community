@@ -30,6 +30,13 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 主页
+     * @param model model
+     * @param page page
+     * @param size size
+     * @return 主页
+     */
     @GetMapping("/")
     public String index(Model model,
                         @RequestParam(value = "page",defaultValue = "1")Integer page,

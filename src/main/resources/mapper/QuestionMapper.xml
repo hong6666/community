@@ -112,7 +112,16 @@
   </update>
 
   <select id="selectRelated" parameterType="com.lhh.community.entity.Question" resultMap="ResultMapWithBLOBs">
-    select * from question where id != #{id,jdbcType=BIGINT} and tag regexp #{tag,jdbcType=VARCHAR}
+    select * from question
+    <where>
+      <if test="id != null">
+        and id != #{id,jdbcType=BIGINT}
+      </if>
+      <if test="tag != null and tag != ''">
+        and tag regexp #{tag,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by gmt_create desc limit 20
   </select>
 
 </mapper>
