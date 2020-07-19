@@ -35,6 +35,10 @@ public interface QuestionService {
      */
     QuestionDTO selectByPrimaryKey(Long id);
 
+    /**
+     * 创建或更新问题
+     * @param question
+     */
     void createOrUpdate(Question question);
 
     /**

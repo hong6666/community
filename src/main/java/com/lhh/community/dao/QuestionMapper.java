@@ -13,6 +13,11 @@ public interface QuestionMapper {
 
     int deleteByPrimaryKey(Long id);
 
+    /**
+     * 插入问题
+     * @param record record
+     * @return int
+     */
     int insert(Question record);
 
 
